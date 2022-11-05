@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -48,5 +49,14 @@ class User extends Authenticatable
        return "https://cdn.sep.cc/avatar/$hash?s=$size";
        //$hash = trim($this->attributes['email']);
        //return "cdn.sep.cc/avatar/";
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->activation_token = Str::random(10);
+        });
     }
 }
