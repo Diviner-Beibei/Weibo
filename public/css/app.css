@@ -10840,6 +10840,7 @@ footer {
   font-weight: bold;
   /* User gravatar */
   /* Users edit */
+  /* Status */
 }
 footer a {
   color: #555;
@@ -10878,4 +10879,8 @@ footer .gravatar_edit {
 footer .gravatar_edit .gravatar {
   float: none;
   max-width: 100px;
+}
+footer .status-delete-btn {
+  width: -moz-max-content;
+  width: max-content;
 }
