@@ -21,7 +21,7 @@ class UsersController extends Controller
         ]);
 
         // 注册限流， 一个小时内只能提交 10 次请求；
-        $this->middleware('throttle:10,60', [
+        $this->middleware('throttle:100,60', [
             'only' => ['store']
         ]);
     }
@@ -40,7 +40,10 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()
+                           ->orderBy('created_at', 'desc')
+                           ->paginate(10);
+        return view('users.show', compact('user','statuses'));
     }
 
     public function store(Request $request)
